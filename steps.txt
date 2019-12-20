@@ -1,1 +1,13 @@
 Section 14 Boss Level Challenge - Bitcoin Ticker:
+
+1. L-147/148/149: The MaterialDropdownButton
+1.1 in price_screen: add dropdown button with DropdownMeuItems, change onChanged to display button
+1.2 add value prop (starting value - usually first item in list) with 'USD'
+1.3 on change, update value of dropdown button
+    1.3 (a) add prop selectedCurrency  to class with starting value 'USD'
+    1.3 (b) replace value 'USD' with selectedCurrency
+    1.3 (c) change onChanged to set selectedCurrency to value -> setState()
+1.4 add all currencies as list to DropdownMenuItem
+    1.4 (a) import coin_data.dart
+    1.4 (b) in price_screen.dart create getDropDownItems()
+    1.4 (c) call method from DropdownButton<String>(items)
