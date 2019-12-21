@@ -45,3 +45,12 @@ Task: display CupertinoPicker in iOS devices and DropdownMenuButton in Android D
 4.6 create initState() and call getData() from initState
 4.7 add $bitCoinValueinUSD to Button
 
+5. L-154: Challenge Silver Level: add functionality to currency selector
+5.1 update selectedCurrency init to AUD
+5.2 call getData from onChanged | setState in DropDownButton
+5.3 save the selected Currency to selectedCurrency IOS style in onSelectedItemChanged
+5.4 call getData from onSelectedItemChanged in cupertinoPicker
+5.5 modify getData)to pass selectedCurrency
+5.6 update Text() widget for BTC Card
+
+

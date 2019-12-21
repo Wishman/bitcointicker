@@ -1,4 +1,4 @@
-import 'package:bitcoin_ticker/data_gatherer.dart';
+//import 'package:bitcoin_ticker/data_gatherer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart'; // 2.1(b)
 import 'dart:io' show Platform; // 3.6(a)
@@ -11,7 +11,7 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String selectedCurrency = 'USD'; // 1.3(a) with starting value of USD
+  String selectedCurrency = 'AUD'; // 1.3(a) with starting value of USD // AUD per 5.1
 
   // 3.1
   DropdownButton<String> androidDropdown() {
@@ -29,6 +29,7 @@ class _PriceScreenState extends State<PriceScreen> {
         onChanged: (value) {
           setState(() {
             selectedCurrency = value; // 1.3(c)
+            getData(); // 5.2
           });
         });
   }
@@ -46,7 +47,8 @@ class _PriceScreenState extends State<PriceScreen> {
       backgroundColor: Colors.lightBlue,
       itemExtent: 32.0,
       onSelectedItemChanged: (selectedIndex) {
-        print(selectedIndex); // 2.2 (b)
+        selectedCurrency = currenciesList[selectedIndex]; // 2.2 (b)  // update 5.3
+        getData();
       },
       children: pickerItems, // 2.2 (b) and 3.5!!
     );
@@ -64,7 +66,8 @@ class _PriceScreenState extends State<PriceScreen> {
   */
 
   // -----
-  String bitCoinValueInUSD = '?'; // 4.4
+  //String bitCoinValueInUSD = '?'; // 4.4 obsolete
+  String bitCoinValue = '?';
 
   /* my version
   void updateUI(String currency) async {
@@ -77,9 +80,9 @@ class _PriceScreenState extends State<PriceScreen> {
   // 4.5
   void getData() async {
     try {
-      double data = await CoinData().getCoinData();
+      double data = await CoinData().getCoinData(selectedCurrency); // 5.5
       setState(() {
-        bitCoinValueInUSD = data.toStringAsFixed(0);
+        bitCoinValue = data.toStringAsFixed(0);
       });
     } catch (e) {
       print(e);
@@ -114,7 +117,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = $bitCoinValueInUSD USD',
+                  '1 BTC = $bitCoinValue $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
