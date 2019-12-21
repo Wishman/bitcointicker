@@ -11,3 +11,13 @@ Section 14 Boss Level Challenge - Bitcoin Ticker:
     1.4 (a) import coin_data.dart
     1.4 (b) in price_screen.dart create getDropDownItems()
     1.4 (c) call method from DropdownButton<String>(items)
+
+2. L-150: Introducing Cupertino Widgets
+Task: on iOS use PickerView instead of DropDownMenuButton
+2.1 exchange DropDownMenu for CupertinoPicker - in price_screen.dart
+    2.1 (a) cut DropDrownButton from Container and paste at bottom as comments
+    2.1 (b) import Cupertino.dart
+    2.1 (c) add Cupertino widget as child to Container
+2.2 populate Cupertino Picker with List of currencies
+    2.2 (a) add method getPickerItems
+    2.2 (b) call method from CupertinoPicker children prop
