@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart'; // 2.1(b)
+import 'dart:io' show Platform; // 3.6(a)
 import 'coin_data.dart';
 
 class PriceScreen extends StatefulWidget {
@@ -10,7 +11,9 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCurrency = 'USD'; // 1.3(a) with starting value of USD
 
-  List<DropdownMenuItem> getDropDownItems() {
+  // 3.1
+  DropdownButton<String> androidDropdown() {
+    // 3.2
     List<DropdownMenuItem<String>> dropDownItems = [];
     for (String currency in currenciesList) {
       dropDownItems.add(DropdownMenuItem(
@@ -18,18 +21,45 @@ class _PriceScreenState extends State<PriceScreen> {
         value: currency,
       ));
     }
-    return dropDownItems;
+    return DropdownButton<String>(
+        value: selectedCurrency, // 1.2 & 1.3 (b) & 1.4(c)
+        items: dropDownItems, // 3.2 !! (expects list of items to display)
+        onChanged: (value) {
+          setState(() {
+            selectedCurrency = value; // 1.3(c)
+          });
+        });
   }
 
-  // 2.2(a)
-  List<Text> getPickerItems() {
-    // or List<Widget>
+  // 3.3
+  CupertinoPicker iOSPicker() {
+    // 3.5 or before 2.2 (a)
     List<Text> pickerItems = []; // or List<Widget>
     for (String currency in currenciesList) {
       pickerItems.add(Text(currency));
     }
-    return pickerItems;
+
+    // 3.4
+    return CupertinoPicker(
+      backgroundColor: Colors.lightBlue,
+      itemExtent: 32.0,
+      onSelectedItemChanged: (selectedIndex) {
+        print(selectedIndex); // 2.2 (b)
+      },
+      children: pickerItems, // 2.2 (b) and 3.5!!
+    );
   }
+
+  /*
+  // 3.6 (b) - obsolete with ternary operator in containter child!
+  Widget selectButton() {
+    if (Platform.isIOS) {
+      return iOSPicker();
+    } else if (Platform.isAndroid) {
+      return androidDropdown();
+    }
+  }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +98,7 @@ class _PriceScreenState extends State<PriceScreen> {
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
             // 1.1 add dropdown Button & 2.1(c) Cupertino Picker
-            child: CupertinoPicker(
-                backgroundColor: Colors.lightBlue,
-                itemExtent: 32.0,
-                onSelectedItemChanged: (selectedIndex) {
-                  print(selectedIndex); // 2.2 (b)
-                },
-                children: getPickerItems() // 2.2 (b)
-                ),
+            child: Platform.isIOS ? iOSPicker() : androidDropdown(),
           ),
         ],
       ),
@@ -84,13 +107,5 @@ class _PriceScreenState extends State<PriceScreen> {
 }
 
 /*
-DropdownButton<String>(
-              value: selectedCurrency, // 1.2 & 1.3 (b) & 1.4(c)
-              items: getDropDownItems(), // expects list of items to display
-              onChanged: (value) {
-                setState(() {
-                  selectedCurrency = value; // 1.3(c)
-                });
-              },
-            ),
+
  */

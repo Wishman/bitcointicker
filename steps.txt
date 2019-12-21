@@ -21,3 +21,17 @@ Task: on iOS use PickerView instead of DropDownMenuButton
 2.2 populate Cupertino Picker with List of currencies
     2.2 (a) add method getPickerItems
     2.2 (b) call method from CupertinoPicker children prop
+
+3. L-151: Building Platform Specific UI (iOS & Android)
+Task: display CupertinoPicker in iOS devices and DropdownMenuButton in Android Devices
+3.1 add method androidDropDown that returns a DropDownButton<String> in class
+3.2 refactor getDropDownItems into androidDropDown
+3.3 add method iOSPicker that returns a CupertinoPicker
+3.4 cut and paste CupertinoPicker into this new method
+3.5 refactor getPickerItems into iOSPicker method
+
+3.6 make choice between AndroidDropDown and iOSPicker based on OS:
+    3.6 (a) import platform from dart:io to access OS (no pubspec.yaml)
+    3.6 (b) use if/elseif in separate method selectButton()
+    3.6 (c) call selectButton () from Container child
+    3.6 (d) replace 3.6(c) with ternary operator
