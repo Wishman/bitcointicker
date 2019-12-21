@@ -35,3 +35,13 @@ Task: display CupertinoPicker in iOS devices and DropdownMenuButton in Android D
     3.6 (b) use if/elseif in separate method selectButton()
     3.6 (c) call selectButton () from Container child
     3.6 (d) replace 3.6(c) with ternary operator
+
+4. L-153: Challenge Bronze Level: Get USD Bitcoin Price from API and display
+4.1 in coin_data.dart add imports for http.dart & dart.convert
+4.2 add url const
+4.3 in class CoinData add logic to get USD data via API
+4.4 add String for USD BTC value and set to '?' for initial
+4.5 add getData method to get data via CoinData class
+4.6 create initState() and call getData() from initState
+4.7 add $bitCoinValueinUSD to Button
+
